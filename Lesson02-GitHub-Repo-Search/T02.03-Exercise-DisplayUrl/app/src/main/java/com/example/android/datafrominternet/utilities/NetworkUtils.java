@@ -15,9 +15,12 @@
  */
 package com.example.android.datafrominternet.utilities;
 
+import android.net.Uri;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
@@ -46,7 +49,25 @@ public class NetworkUtils {
      */
     public static URL buildUrl(String githubSearchQuery) {
         // TODO (1) Fill in this method to build the proper Github query URL
-        return null;
+        //Create the Uri. a URL is a type of Uri
+        Uri.Builder builtUri = Uri.parse(GITHUB_BASE_URL).buildUpon();
+
+        //Add the search term
+        builtUri.appendQueryParameter(PARAM_QUERY, githubSearchQuery);
+        //Sort and build
+        builtUri.appendQueryParameter(PARAM_SORT, sortBy).build();
+
+        URL builtUrl = null;
+        try
+        {
+            builtUrl = new URL(builtUri.toString());
+        }
+        catch(MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
+        return builtUrl;
+
     }
 
     /**
