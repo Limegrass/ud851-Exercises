@@ -70,8 +70,11 @@ public class VisualizerActivity extends AppCompatActivity implements SharedPrefe
     }
 
     private void loadSizeFromSharedPreferences(SharedPreferences sharedPreferences) {
-        float minSize = Float.parseFloat(sharedPreferences.getString(getString(R.string.pref_size_key),
-                getString(R.string.pref_size_default)));
+        String sizeString = sharedPreferences.getString(getString(R.string.pref_size_key), getString(R.string.pref_size_default));
+        if(sizeString.equals("")){
+            sizeString="1";
+        }
+        float minSize = Float.parseFloat(sizeString);
         mVisualizerView.setMinSizeScale(minSize);
     }
 

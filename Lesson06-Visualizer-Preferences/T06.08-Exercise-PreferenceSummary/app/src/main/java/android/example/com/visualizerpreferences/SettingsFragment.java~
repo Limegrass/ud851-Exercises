@@ -46,8 +46,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements OnShar
         for (int i=0; i<preferenceCount; i++){
             Preference preference = preferenceScreen.getPreference(i);
             if(!(preference instanceof CheckBoxPreference)){
-                String key = sharedPreferences.getString(preference.getKey(), "");
-                setPreferenceSummary(preference, key);
+                String value = sharedPreferences.getString(preference.getKey(), "");
+                setPreferenceSummary(preference, value);
             }
         }
 
@@ -61,16 +61,16 @@ public class SettingsFragment extends PreferenceFragmentCompat implements OnShar
         Preference preference = findPreference(key);
 
         if(preference != null && !(preference instanceof CheckBoxPreference)){
-            String prefKey = sharedPreferences.getString(preference.getKey(), "");
-            setPreferenceSummary(preference, prefKey);
+            String value = sharedPreferences.getString(preference.getKey(), "");
+            setPreferenceSummary(preference, value);
         }
     }
 
-    // TODO (2) Create a setPreferenceSummary which takes a Preference and String key as parameters.
-    private void setPreferenceSummary(Preference preference, String key){
+    // TODO (2) Create a setPreferenceSummary which takes a Preference and String value as parameters.
+    private void setPreferenceSummary(Preference preference, String value){
         if(preference instanceof ListPreference){
             ListPreference listPreference = (ListPreference)preference;
-            int preferenceIndex = listPreference.findIndexOfValue(key);
+            int preferenceIndex = listPreference.findIndexOfValue(value);
             if(preferenceIndex>=0){
                 listPreference.setSummary(listPreference.getEntries()[preferenceIndex]);
             }
