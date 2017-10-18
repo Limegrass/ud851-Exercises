@@ -17,15 +17,18 @@
 package com.example.android.todolist.data;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import static com.example.android.todolist.data.TaskContract.TaskEntry.CONTENT_URI;
 import static com.example.android.todolist.data.TaskContract.TaskEntry.TABLE_NAME;
 
 // Verify that TaskContentProvider extends from ContentProvider and implements required methods
@@ -157,13 +160,30 @@ public class TaskContentProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
         // TODO (1) Get access to the database and write URI matching code to recognize a single item
+        SQLiteDatabase sqLiteDatabase = mTaskDbHelper.getWritableDatabase();
+        int match = sUriMatcher.match(uri);
+        int deletions = 0;
+
+        switch (match){
+            case TASK_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                String whereStatement = "_ID=?";
+                String[] whereArgs = new String[]{id};
+                System.out.println("DELETE SELECTIONS: " + id);
+                deletions = sqLiteDatabase.delete(TABLE_NAME, whereStatement, whereArgs);
+                break;
+            default:
+                throw new SQLiteException("Unknown URI: " + uri);
+        }
+
 
         // TODO (2) Write the code to delete a single row of data
         // [Hint] Use selections to delete an item by its row ID
 
         // TODO (3) Notify the resolver of a change and return the number of items deleted
+        getContext().getContentResolver().notifyChange(uri, null);
+        return deletions;
 
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 

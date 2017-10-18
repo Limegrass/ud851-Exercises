@@ -17,12 +17,19 @@
 package com.example.android.todolist.data;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+
+import com.example.android.todolist.MainActivity;
 
 // Verify that TaskContentProvider extends from ContentProvider and implements required methods
 public class TaskContentProvider extends ContentProvider {
@@ -79,15 +86,33 @@ public class TaskContentProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         // TODO (1) Get access to the task database (to write new data to)
+        SQLiteDatabase sqLiteDatabase = mTaskDbHelper.getWritableDatabase();
 
         // TODO (2) Write URI matching code to identify the match for the tasks directory
+        int uriType = sUriMatcher.match(uri);
 
         // TODO (3) Insert new values into the database
         // TODO (4) Set the value for the returnedUri and write the default case for unknown URI's
+        Uri returnUri;
+        switch (uriType){
+            case TASKS:
+                long id = sqLiteDatabase.insert(TaskContract.TaskEntry.TABLE_NAME, null, values);
+                if (id > 0){
+                    returnUri = ContentUris.withAppendedId(TaskContract.TaskEntry.CONTENT_URI, id);
+                }
+                else{
+                    throw new SQLiteException("Failed to insert to " + uri);
+                }
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri:" + uri);
+        }
 
         // TODO (5) Notify the resolver if the uri has been changed, and return the newly inserted URI
+        getContext().getContentResolver().notifyChange(returnUri, null);
+        return returnUri;
 
-        throw new UnsupportedOperationException("Not yet implemented");
+
     }
 
 
