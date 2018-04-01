@@ -15,7 +15,7 @@
     android:layout_height="wrap_content">
 
     <android.support.constraint.ConstraintLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -52,16 +52,14 @@
     TODO (3) Move all Views in the flight information section from activity_main to flight_info
     TODO (5) Add an include tag in activity_main to include flightInfo in the right position
 -->
-
         <include
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPassengerName"
-            android:layout_marginTop="16dp"
-            android:id="@+id/flight_info"
-            layout="@layout/flight_info"
-            android:layout_width="0dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewPassengerName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent" />
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/flight_info"
+            layout="@layout/flight_info"/>
 
         <TextView
             android:id="@+id/textViewBoardingTimeLabel"
@@ -70,11 +68,12 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:letterSpacing="0.3"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/flight_info"
+            app:layout_constraintRight_toLeftOf="@id/textViewBoardingInTimeLabel"
+            app:layout_constraintTop_toTopOf="@id/textViewPassengerLabel"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp" />
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="8dp" />
 
 
         <TextView
@@ -82,7 +81,7 @@
             tools:text="@string/boarding_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@android:color/black"
             app:layout_constraintLeft_toLeftOf="@+id/textViewBoardingTimeLabel"
             app:layout_constraintTop_toBottomOf="@+id/textViewBoardingTimeLabel" />
@@ -105,7 +104,7 @@
             tools:text="@string/departure_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorGood"
             app:layout_constraintLeft_toLeftOf="@+id/textViewDepartureTimeLabel"
             app:layout_constraintTop_toBottomOf="@+id/textViewDepartureTimeLabel" />
@@ -118,11 +117,14 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:letterSpacing="0.3"
-            android:layout_marginEnd="40dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/flight_info"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="40dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewPassengerLabel"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="16dp"/>
 
 
         <TextView
@@ -130,7 +132,7 @@
             tools:text="@string/boarding_in_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorBad"
             app:layout_constraintLeft_toLeftOf="@+id/textViewBoardingInTimeLabel"
             app:layout_constraintTop_toBottomOf="@+id/textViewBoardingInTimeLabel" />
@@ -153,7 +155,7 @@
             tools:text="@string/arrival_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorGood"
             app:layout_constraintLeft_toLeftOf="@+id/textViewArrivalTimeLabel"
             app:layout_constraintTop_toBottomOf="@+id/textViewArrivalTimeLabel" />
@@ -162,15 +164,16 @@
     TODO (4) Move all Views in the boarding information table from activity_main to boarding_info
     TODO (6) Add an include tag in activity_main to include boardingInfo in the right position
 -->
+
         <include
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewArrivalTime"
+            app:layout_constraintTop_toBottomOf="@+id/flight_info"
             android:layout_marginTop="16dp"
             android:id="@+id/boarding_info"
             layout="@layout/boarding_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toLeftOf="@id/barcode"/>
 
 
 
@@ -179,10 +182,9 @@
             android:layout_height="100dp"
             app:srcCompat="@mipmap/barcode"
             android:id="@+id/barcode"
+            android:layout_marginRight="16dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/boarding_info"
-            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
 
     </android.support.constraint.ConstraintLayout>
