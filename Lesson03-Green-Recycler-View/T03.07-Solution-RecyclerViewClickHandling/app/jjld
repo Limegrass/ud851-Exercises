@@ -1,0 +1,141 @@
+let SessionLoad = 1
+if &cp | set nocp | endif
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd G:\Git\ud851-Exercises\Lesson03-Green-Recycler-View\T03.07-Solution-RecyclerViewClickHandling\app
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +1 \Git\configs\vim\_vimrc
+badd +5 src\main\gen\com\example\android\recyclerview\Manifest.java
+badd +218 src\main\java\com\example\android\recyclerview\GreenAdapter.java
+badd +90 src\main\java\com\example\android\recyclerview\MainActivity.java
+badd +0 src\main\res\layout\activity_main.xml
+argglobal
+silent! argdel *
+set stal=2
+edit src\main\java\com\example\android\recyclerview\GreenAdapter.java
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd t
+set winminheight=1 winheight=1 winminwidth=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 141 + 142) / 284)
+exe '2resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 2resize ' . ((&columns * 142 + 142) / 284)
+exe '3resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 3resize ' . ((&columns * 142 + 142) / 284)
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+41
+normal! zo
+133
+normal! zo
+185
+normal! zo
+let s:l = 138 - ((37 * winheight(0) + 33) / 67)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+138
+normal! 0102|
+wincmd w
+argglobal
+edit src\main\java\com\example\android\recyclerview\MainActivity.java
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+28
+normal! zo
+let s:l = 10 - ((9 * winheight(0) + 16) / 33)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+10
+normal! 070|
+wincmd w
+argglobal
+edit src\main\res\layout\activity_main.xml
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 8 - ((7 * winheight(0) + 16) / 33)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+8
+normal! 0
+wincmd w
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 141 + 142) / 284)
+exe '2resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 2resize ' . ((&columns * 142 + 142) / 284)
+exe '3resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 3resize ' . ((&columns * 142 + 142) / 284)
+tabedit \Git\configs\vim\_vimrc
+set splitbelow splitright
+wincmd t
+set winminheight=1 winheight=1 winminwidth=1 winwidth=1
+argglobal
+setlocal fdm=indent
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 311 - ((59 * winheight(0) + 33) / 67)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+311
+normal! 03|
+tabnew
+set splitbelow splitright
+wincmd t
+set winminheight=1 winheight=1 winminwidth=1 winwidth=1
+tabnext 1
+set stal=1
+if exists('s:wipebuf')
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 shortmess=filnxtToO
+set winminheight=1 winminwidth=1
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+let g:this_session = v:this_session
+let g:this_obsession = v:this_session
+let g:this_obsession_status = 2
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :
